@@ -17,21 +17,21 @@ program cypher_nm01.aleo {
     
     mapping codes: CodeBlock => field;
     mapping code_count: address => u64;
+
+    
     
     
 
     transition initialize_account(nonce: u32) -> bool{
         let owner: address = self.caller;
-        return true then finalize(owner, nonce);
-    }
-
-    finalize initialize_account(owner: address, nonce: u32) {
-        let gen: u32 = ChaCha::rand_u32();
-        let gen2: u32 = gen + nonce;
-        let msk: field = (gen as field).square_root() + (gen2 as field).square_root();
+        let gen1: field = 12830210332_field;
+        let gen2: field = 73907546187_field + nonce as field;
+        let msk: field = gen1.square_root() + gen2.square_root();
         let cyph: Cyphers = Cyphers {owner: owner, cypher: msk};
-
+        return true;
     }
+
+    
 
     transition create_code(val: field) -> bool {
         let owner: address = self.caller;

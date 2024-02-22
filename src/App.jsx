@@ -2,7 +2,7 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import aleoLogo from "./assets/aleo.svg";
 import "./App.css";
-import helloworld_nm01_program from "../helloworld_nm01/build/main.aleo?raw";
+import cypher_nm01_program from "../cypher_nm01/build/main.aleo?raw";
 import { AleoWorker } from "./workers/AleoWorker.js";
 
 const aleoWorker = AleoWorker();
@@ -20,19 +20,29 @@ function App() {
   async function execute() {
     setExecuting(true);
     const result = await aleoWorker.localProgramExecution(
-      helloworld_nm01_program,
-      "main",
-      ["1u32", "5u32", "10u32"],
+      cypher_nm01_program,
+      "initialize_account",
+      ["105683u32"],
     );
     setExecuting(false);
 
     alert(JSON.stringify(result));
+
+    setExecuting(true);
+    const result2 = await aleoWorker.localProgramExecution(
+      cypher_nm01_program,
+      "create_code",
+      ["1122334455field"],
+    );
+    setExecuting(false);
+
+    alert(JSON.stringify(result2));
   }
 
   async function deploy() {
     setDeploying(true);
     try {
-      const result = await aleoWorker.deployProgram(helloworld_nm01_program);
+      const result = await aleoWorker.deployProgram(cypher_nm01_program);
       console.log("Transaction:")
       console.log("https://explorer.hamp.app/transaction?id=" + result)
       alert("Transaction ID: " + result);
@@ -69,7 +79,7 @@ function App() {
           <button disabled={executing} onClick={execute}>
             {executing
               ? `Executing...check console for details...`
-              : `Execute helloworld_nm01.aleo`}
+              : `Execute cypher_nm01.aleo`}
           </button>
         </p>
         <p>
@@ -89,7 +99,7 @@ function App() {
           <button disabled={deploying} onClick={deploy}>
             {deploying
               ? `Deploying...check console for details...`
-              : `Deploy helloworld_nm01.aleo`}
+              : `Deploy cypher_nm01.aleo`}
           </button>
         </p>
       </div>

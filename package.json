@@ -10,8 +10,15 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  },
   "dependencies": {
-    "@aleohq/sdk": "^0.6.0",
+    "@aleohq/sdk": "^0.6.9",
+    "@puzzlehq/sdk": "^0.2.5",
     "comlink": "^4.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
