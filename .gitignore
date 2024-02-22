@@ -1,3 +1,4 @@
 node_modules
 .env
 cypher_nm01/.env
+dist
